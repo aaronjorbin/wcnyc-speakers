@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title>Voting App</title>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	</head>
+	<body>
+	</body>
+		<div  id="main" >
+		</div>
+		<a href="#" id="buildRanking">Show Rankings</a>
+		<script type="text/template" id="selectTemplate">
+		<div class="container">
+			<div class="row">
+				<form class="form-horizontal">
+					<select id='nameSelect' name="name"> 
+						<% _.each( peeps, function(p){ %> 
+							<option value='<%= p %>'><%= p %></option>
+						<% }) %>
+					</select>
+					<input id='nameSubmit' type='submit' onclick='app.buildTalks();' />
+				</form>
+			</div>
+		</div>
+		</script>
+		<script type="text/template" id="talkTemplate">
+		<div class="container">
+			<div class="row">	
+				<div class='col-md-6'> 
+					<%= a['Proposed Session Title'] %>
+				</div>
+				<div class='col-md-3'> 
+					<strong>Location:</strong> <%= a['Location'] %>
+				</div>
+				<div class='col-md-3'> 
+					<strong>Presented Before: </strong> <%= a['Have you presented this topic before? If so, where? '] %>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-md-12'> 
+					<strong>description:</strong> <%= a['Session Description'] %>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-md-12'> 
+					<strong>Audiance:</strong> <%= a['Describe the audience that you wish to reach with your topic'] %>
+				</div>
+			</div>
+			<div class="row">
+				<form class="horizontal" data-guid="<%= a.GUID %>" >
+					<label> Local Points
+						<select id="local-<%= a.GUID %>" class='local'>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+					</label>
+					<label> Originality 
+						<select id="originality-<%= a.GUID %>" class='originiality'>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</label>
+					<label> Philisophical Desirability 
+						<select id="desire-<%= a.GUID %>" class='philosophy'>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</label>
+					<input type="submit" class="talkSubmit"/>
+				</form>
+			</div>
+		</div>
+		</script>
+		<script type="text/template" id="rankingTemplate">
+		<div class="container" id="talk-<%= t['GUID'] %>">
+			<div class="row">	
+				<div class='col-md-1' data-local="<%= t['local'] %>" data-originality="<%= t['originality'] %>" data-philosophy="<%= t['philosophy'] %>" >
+					Score: <%= t['score']%>
+				</div>
+				<div class='col-md-5'> 
+					<%= t['Proposed Session Title'] %>
+				</div>
+				<div class='col-md-3'> 
+					<strong>Location:</strong> <%= t['Location'] %>
+				</div>
+				<div class='col-md-3'> 
+					<strong>Presented Before: </strong> <%= t['Have you presented this topic before? If so, where? '] %>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-md-12'> 
+					<strong>description:</strong> <%= t['Session Description'] %>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-md-12'> 
+					<strong>Audiance:</strong> <%= t['Describe the audience that you wish to reach with your topic'] %>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class='col-md-3'> 
+					<strong>Name:</strong> <%= t['Name'] %>
+				</div>
+				<div class='col-md-9'> 
+					<strong>Bio:</strong> <%= t['Speaker Bio'] %>
+				</div>
+			</div>
+			<hr />
+		</div>
+		</script>
+
+		<script src="app.js"></script>
+	</body>
+</html>
